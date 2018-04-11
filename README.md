@@ -101,38 +101,4 @@ getdate()|from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss')
 
 这里如果先替换B,  A不会被替换  
 
-所以在配置文件中A需要比B的行数小  
-
-# 脚本批量解析程序
-## 命令行执行
-`cd ~/job_helper/bin`  
-
-`python job_analysis.py run "e:/workspace/bigdata-dwh/code/dwd/user_profile/job" "sql"`
-## 参数说明
-filepath:'e:/workspace/bigdata-dwh/code/dwd/user_profile/job'  
-
-脚本路径,程序将处理路径 filepath 下的所有脚本  
-
-suffix:'sql'  
-
-脚本的后缀,程序只处理后缀为 suffix 的脚本  
-
-解析行为:  
-
-将按照 Job注解规范 自动解析脚本中的  @source,@target  并将解析结果写入脚本末尾  
-
-例如:  
-`--/**#2018-04-11 14:48:42.980433
---   #source|dwd.dwd_user
---   #source|dwd.dwd_rack_order
---   #target|dwd.user_profile_rack_history_consume_data
---**/
-`
-## 注意:
-*脚本依赖自动解析的结果 主要供脚本开发者参考*  
-
-*脚本被提交到git的dev分支后,以--@ 开头的注解将被保存到 元数据管理系统 中*  
-
-*所以将 --   # 批量替换为 --   @ 可以批量进行上述进程*  
-
-*目前调度系统没有使用该依赖,所以并不会自动加入调度系统*
+所以在配置文件中A需要比B的行数小
