@@ -81,6 +81,8 @@ class agent(object):
             conf='''./table.conf'''
         elif conf=='''func''':
             conf='''./func.conf'''
+        elif conf=='''flag''':
+            conf='''./flag.conf'''
         else:
             raise ValueError()
         todolist = "./.todolist.plan"

@@ -59,6 +59,7 @@ class agent(object):
         tag_target = "target"
         pattern_target = "(?i)(insert.*?table)[\s*].*?[\s]"
         sub_target = "(?i)(insert.*?table)[\s*]"
+        lines_file = []
         lines = []
         lines_tmp = []
 
@@ -66,20 +67,18 @@ class agent(object):
         for line in f:
             if not re.match(clean_flag,line,re.I):
                 if not len(line) == 0:
-                    lines.append(line)
+                    lines_file.append(line)
         f.close()
-
         lines.append("--/**#"+update_time)  # 脚本解析开始
         source = c.analysis_job(flag,clean_flag,pattern_source,sub_source,tag_source,file)
         lines.extend(source)
         target = c.analysis_job(flag,clean_flag,pattern_target,sub_target,tag_target,file)
         lines.extend(target)
         lines.append("--**/\n")  # 脚本解析结束
-
         lines_tmp = lines       # 去重
         lines = list(set(lines_tmp))
         lines.sort(key=lines_tmp.index)
-
+        lines.extend(lines_file)            # 注解写入文件头部
         f = open(file,"w",encoding="utf-8")  # 写入文件
         for line in lines:
             line = re.sub("\n","",str(line))
